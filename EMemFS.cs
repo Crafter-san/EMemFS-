@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-
+using System.Xml.Linq;
 
 public abstract class EFSData
 {
@@ -116,5 +117,31 @@ public class Device : EFSData
         Drives = drives ?? new();
         Devices = devices ?? new();
         this.name = name;
+    }
+}
+
+public class FileManager
+{
+    public static JsonSerializerOptions options = new JsonSerializerOptions
+    {
+        IncludeFields = true,
+        WriteIndented = true
+    };
+    public static void Save(string filename, Device device)
+    {
+
+        string jsonString = JsonSerializer.Serialize<Device>(device, options);
+        using var streamWriter = System.IO.File.CreateText(filename);
+        streamWriter.Write(jsonString);
+        streamWriter.Close();
+    }
+    public static Device Load(string filename)
+    {
+
+        using StreamReader streamReader = new(filename);
+        Device? device_instance =
+                JsonSerializer.Deserialize<Device>(streamReader.ReadToEnd(), options);
+        streamReader.Close();
+        return device_instance;
     }
 }
