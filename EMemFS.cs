@@ -120,7 +120,7 @@ public class Device : EFSData
     }
 }
 
-public class FileManager
+public class DeviceManager
 {
     public static JsonSerializerOptions options = new JsonSerializerOptions
     {
