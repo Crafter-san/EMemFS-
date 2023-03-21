@@ -1,8 +1,3 @@
-// See https://aka.ms/new-console-template for more information
-//using System;
-//using System.ComponentModel;
-
-
 using System.Numerics;
 using System.Threading;
 using System.Text.Json;
@@ -21,7 +16,6 @@ public class MainProgram {
         Console.WriteLine(folder.Timestamp);
         DeviceManager.Save("test file", device);
         Device device_instance = DeviceManager.Load("test file");
-        //Console.WriteLine(jsonString);
         
         Console.WriteLine(device_instance.Folders.Get("test").Files.Get("test").Lines[0]);
     }
