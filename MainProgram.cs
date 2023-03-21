@@ -16,7 +16,7 @@ public class MainProgram {
             MaxDepth = 100,
         };
         Folder folder = new("test");
-        Thread.Sleep(2000);
+        Task.Delay(2000).GetAwaiter().GetResult();
         File file =  new ("test");
         folder.Files.Set(file);
         folder.Files.Get("test").Append("test");
@@ -24,7 +24,7 @@ public class MainProgram {
         Console.WriteLine(folder.Files.Get("test").Timestamp);
         Console.WriteLine(folder.Timestamp);
         string jsonString = JsonSerializer.Serialize<Folder>(folder, options);
-
+        
         Console.WriteLine(jsonString);
         Folder? folder_instance =
                 JsonSerializer.Deserialize<Folder>(jsonString, options);
