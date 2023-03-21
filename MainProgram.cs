@@ -19,8 +19,8 @@ public class MainProgram {
         device.Folders.Set(folder);
         Console.WriteLine(folder.Files.Get("test").Timestamp);
         Console.WriteLine(folder.Timestamp);
-        FileManager.Save("test file", device);
-        Device device_instance = FileManager.Load("test file");
+        DeviceManager.Save("test file", device);
+        Device device_instance = DeviceManager.Load("test file");
         //Console.WriteLine(jsonString);
         
         Console.WriteLine(device_instance.Folders.Get("test").Files.Get("test").Lines[0]);
