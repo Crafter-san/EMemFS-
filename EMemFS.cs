@@ -18,15 +18,16 @@ public abstract class EFSData
 }
 public class Manage<EFSObj> where EFSObj : EFSData
 {
-    public List<string> Dir { get; private set; } = new();
-    public Dictionary<string, EFSObj> List { get; private set; } = new();
+    public List<string> Dir { get; init; } = new();
+    public Dictionary<string, EFSObj> List { get; init; } = new();
     public EFSObj Get(string key)
     {
-        if (!List.ContainsKey(key)) return null;
+        if (!Dir.Contains(key)) return null;
         return List[key];
     }
     public EFSObj Set(EFSObj obj)
     {
+        if (!Dir.Contains(obj.name)) Dir.Add(obj.name);
         List[obj.name] = obj;
         return obj;
     }
@@ -39,7 +40,7 @@ public class Manage<EFSObj> where EFSObj : EFSData
 }
 public class File : EFSData
 {
-    public List<string> Lines { get; private set; } = new() { "" };
+    public List<string> Lines { get; init; } = new() { "" };
     public File(string name = "Default Filename", string data = "")
     {
 
@@ -60,8 +61,8 @@ public class File : EFSData
 }
 public class Folder : EFSData
 {
-    public Manage<File> Files { get; private set; }
-    public Manage<Folder> Folders { get; private set; }
+    public Manage<File> Files { get; init; }
+    public Manage<Folder> Folders { get; init; }
     public Folder(string name, Manage<File> files = null, Manage<Folder> folders = null)
     {
         Files = files ?? new();
@@ -71,9 +72,9 @@ public class Folder : EFSData
 }
 public class User : EFSData
 {
-    public Manage<File> Files { get; private set; }
-    public Manage<Folder> Folders { get; private set; }
-    public Manage<User> Users { get; private set; }
+    public Manage<File> Files { get; init; }
+    public Manage<Folder> Folders { get; init; }
+    public Manage<User> Users { get; init; }
     public User(string name, Manage<File> files = null, Manage<Folder> folders = null, Manage<User> users = null)
     {
         Files = files ?? new();
@@ -85,10 +86,10 @@ public class User : EFSData
 }
 public class Drive : EFSData
 {
-    public Manage<File> Files { get; private set; }
-    public Manage<Folder> Folders { get; private set; }
-    public Manage<User> Users { get; private set; }
-    public Manage<Drive> Drives { get; private set; }
+    public Manage<File> Files { get; init; }
+    public Manage<Folder> Folders { get; init; }
+    public Manage<User> Users { get; init; }
+    public Manage<Drive> Drives { get; init; }
     public Drive(string name, Manage<File> files = null, Manage<Folder> folders = null, Manage<User> users = null, Manage<Drive> drives = null)
     {
         Files = files ?? new();
@@ -102,11 +103,11 @@ public class Drive : EFSData
 
 public class Device : EFSData
 {
-    public Manage<File> Files { get; private set; }
-    public Manage<Folder> Folders { get; private set; }
-    public Manage<User> Users { get; private set; }
-    public Manage<Drive> Drives { get; private set; }
-    public Manage<Device> Devices { get; private set; }
+    public Manage<File> Files { get; init; }
+    public Manage<Folder> Folders { get; init; }
+    public Manage<User> Users { get; init; }
+    public Manage<Drive> Drives { get; init; }
+    public Manage<Device> Devices { get; init; }
     public Device(string name, Manage<File> files = null, Manage<Folder> folders = null, Manage<User> users = null, Manage<Drive> drives = null, Manage<Device> devices = null)
     {
         Files = files ?? new();
