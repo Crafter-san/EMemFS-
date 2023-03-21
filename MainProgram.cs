@@ -9,25 +9,20 @@ using System.Text.Json;
 
 public class MainProgram {
     public static void Main() {
-        var options = new JsonSerializerOptions
-        {
-            IncludeFields = true,
-            WriteIndented = true,
-            MaxDepth = 100,
-        };
+        Device device = new("test device");
         Folder folder = new("test");
         Task.Delay(2000).GetAwaiter().GetResult();
         File file =  new ("test");
         folder.Files.Set(file);
         folder.Files.Get("test").Append("test");
         file.Append("tester", true);
+        device.Folders.Set(folder);
         Console.WriteLine(folder.Files.Get("test").Timestamp);
         Console.WriteLine(folder.Timestamp);
-        string jsonString = JsonSerializer.Serialize<Folder>(folder, options);
+        FileManager.Save("test file", device);
+        Device device_instance = FileManager.Load("test file");
+        //Console.WriteLine(jsonString);
         
-        Console.WriteLine(jsonString);
-        Folder? folder_instance =
-                JsonSerializer.Deserialize<Folder>(jsonString, options);
-        Console.WriteLine(folder_instance.Files.Get("test").Lines[0]);
+        Console.WriteLine(device_instance.Folders.Get("test").Files.Get("test").Lines[0]);
     }
 }
