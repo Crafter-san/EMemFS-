@@ -12,7 +12,7 @@ public class EMemFS
     {
         public string name { get; set; }
         public string data { get; set; }
-        public byte[] bytes { get; set; }
+        public byte[] bytes { get; set; } = { };
         public Dictionary<string, string> metadata { get; set; } = new Dictionary<string, string>();
         public DateTime Timestamp { get; init; }
         public EFSData()
